@@ -2,18 +2,20 @@
 
 from random import choice
 
-
 def open_and_read_file(file_path):
     """Take file path as string; return text as string.
 
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
+    given_file = open(file_path)
+    
+    text_string = given_file.read()
+                                #.replace("\n"," ")
+    #using \n gets rid of the empty space at the end of the line of text
+    return(text_string)
 
-    # your code goes here
-
-    return "Contents of your file as one long string"
-
+# open_and_read_file("green-eggs.txt")
 
 def make_chains(text_string):
     """Take input text as string; return dictionary of Markov chains.
@@ -41,31 +43,50 @@ def make_chains(text_string):
     """
 
     chains = {}
+    
 
     # your code goes here
+    words = text_string.split()
+    #loop over the list to retrieve words at correct indices
+    for i in range(len(words) -2):
+        #assign words at index i and index i+1 to a touple
+        word_pairs = (words[i], words[i+1])
+        #assign following word to key
+        single_word = words[i+2]
+        #created a list to hold values associated with Key touples
+        followers = chains.get(word_pairs, [])
+        # chains[word_pairs] = single_word
+        followers.append(single_word)
 
-    return chains
+        chains[word_pairs] = followers
+
+    print(chains)
+
+    # return chains
+
+   
+    # return chains
+make_chains(open_and_read_file("green-eggs.txt"))
+
+# def make_text(chains):
+#     """Return text from chains."""
+
+#     words = []
+
+#     # your code goes here
+
+#     return " ".join(words)
 
 
-def make_text(chains):
-    """Return text from chains."""
+# input_path = "green-eggs.txt"
 
-    words = []
+# # Open the file and turn it into one long string
+# input_text = open_and_read_file(input_path)
 
-    # your code goes here
+# # Get a Markov chain
+# chains = make_chains(input_text)
 
-    return " ".join(words)
+# # Produce random text
+# random_text = make_text(chains)
 
-
-input_path = "green-eggs.txt"
-
-# Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
-
-# Get a Markov chain
-chains = make_chains(input_text)
-
-# Produce random text
-random_text = make_text(chains)
-
-print(random_text)
+# print(random_text)
