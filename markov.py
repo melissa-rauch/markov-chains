@@ -60,23 +60,37 @@ def make_chains(text_string):
 
         chains[word_pairs] = followers
 
-    print(chains)
-
-    # return chains
 
    
-    # return chains
+    return chains
 make_chains(open_and_read_file("green-eggs.txt"))
 
-# def make_text(chains):
-#     """Return text from chains."""
+def make_text(chains):
+    """Return text from chains."""
+    rand_key = choice(list(chains.keys()))
 
-#     words = []
+    words = []
+    for word_pairs in chains:
+        if word_pairs != chains:
+            break
+        else:
+            word_pairs = [rand_key[0], rand_key[1]]
+            follower = choice(chains)
+            # words.append(word_pairs)           
+            words.append(word_pairs)
+            words.append(follower) 
 
-#     # your code goes here
+            # words.append(follower)
+            word_pairs = (word_pairs[1], follower)
+    # if ()
+    # create link(key from dict) + random.choice(followers)
+    # make new key out of second word in first key and the follower
+    # look up that new key in the dictionary and pull a new random.choice(follower) from the new list
+    # go back and set loop to keep trying to look for existence of key and stop once new key isn't in dict
 
-#     return " ".join(words)
+    print (" ".join(words))
 
+make_text(make_chains(open_and_read_file("green-eggs.txt")))
 
 # input_path = "green-eggs.txt"
 
