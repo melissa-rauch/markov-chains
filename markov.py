@@ -67,40 +67,35 @@ make_chains(open_and_read_file("green-eggs.txt"))
 
 def make_text(chains):
     """Return text from chains."""
-    rand_key = choice(list(chains.keys()))
+    word_pairs = choice(list(chains.keys()))
 
-    words = []
-    for word_pairs in chains:
-        if word_pairs != chains:
-            break
-        else:
-            word_pairs = [rand_key[0], rand_key[1]]
-            follower = choice(chains)
-            # words.append(word_pairs)           
-            words.append(word_pairs)
-            words.append(follower) 
+    words = [word_pairs[0], word_pairs[1]]
 
-            # words.append(follower)
-            word_pairs = (word_pairs[1], follower)
-    # if ()
+    while word_pairs in chains:
+        word_pairs = (word_pairs[0], word_pairs[1])
+        follower = choice(chains[word_pairs])
+
+        words.append(follower) 
+        word_pairs = (word_pairs[1], follower)
+
     # create link(key from dict) + random.choice(followers)
     # make new key out of second word in first key and the follower
     # look up that new key in the dictionary and pull a new random.choice(follower) from the new list
     # go back and set loop to keep trying to look for existence of key and stop once new key isn't in dict
+   
 
-    print (" ".join(words))
+    print(" ".join(words))
 
-make_text(make_chains(open_and_read_file("green-eggs.txt")))
 
-# input_path = "green-eggs.txt"
+input_path = "green-eggs.txt"
 
-# # Open the file and turn it into one long string
-# input_text = open_and_read_file(input_path)
+# Open the file and turn it into one long string
+input_text = open_and_read_file(input_path)
 
-# # Get a Markov chain
-# chains = make_chains(input_text)
+# Get a Markov chain
+chains = make_chains(input_text)
 
-# # Produce random text
-# random_text = make_text(chains)
+# Produce random text
+random_text = make_text(chains)
 
-# print(random_text)
+print(random_text)
